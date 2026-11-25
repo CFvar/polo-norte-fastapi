@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+    <marker id="r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b91c1c"/>
+    </marker>
+    <marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#15803d"/>
+    </marker>
+    <style>
+      .box{stroke:#334155;stroke-width:1.5}
+      .t{font-size:17px;font-weight:700;fill:#0f172a}
+      .s{font-size:13px;fill:#334155}
+      .m{font-size:12px;fill:#475569;font-family:Consolas,monospace}
+      .arr{stroke:#334155;stroke-width:2;fill:none;marker-end:url(#a)}
+      .err{stroke:#b91c1c;stroke-width:1.6;fill:none;stroke-dasharray:6 4;marker-end:url(#r)}
+      .ok{stroke:#15803d;stroke-width:2;fill:none;marker-end:url(#g)}
+      .lbl{font-size:12px;fill:#334155}
+      .lr{font-size:12px;fill:#b91c1c;font-weight:600}
+      .lg{font-size:12px;fill:#15803d;font-weight:600}
+    </style>
+  </defs>
+  <rect width="1400" height="1000" fill="#ffffff"/>
+  <text x="40" y="44" font-size="24" font-weight="700" fill="#0f172a">API Polo Norte · Escenario B · Establo de renos (FastAPI)</text>
+  <text x="40" y="70" class="s">Python 3.13 · FastAPI · SQLAlchemy 2 + PyMySQL · MySQL 8 · PyJWT · httpx + defusedxml (SOAP) · pytest · Postman</text>
+
+  <!-- Cliente -->
+  <rect x="40" y="105" width="260" height="110" rx="10" class="box" fill="#e0f2fe"/>
+  <text x="60" y="135" class="t">Cliente</text>
+  <text x="60" y="158" class="s">Postman / Newman / Swagger (/docs)</text>
+  <text x="60" y="180" class="m">Authorization: Bearer &lt;JWT&gt;</text>
+  <text x="60" y="200" class="m">JSON</text>
+
+  <!-- Columna central: capas -->
+  <rect x="380" y="100" width="400" height="85" rx="10" class="box" fill="#f1f5f9"/>
+  <text x="400" y="128" class="t">Punto de entrada</text>
+  <text x="400" y="150" class="m">uvicorn → app/main.py (FastAPI)</text>
+  <text x="400" y="170" class="s">lifespan: valida .env, crea BD y tablas · prefijo /api</text>
+
+  <rect x="380" y="220" width="400" height="80" rx="10" class="box" fill="#f1f5f9"/>
+  <text x="400" y="248" class="t">Rutas</text>
+  <text x="400" y="270" class="m">app/routes.py (APIRouter)</text>
+  <text x="400" y="290" class="s">método + ruta → controlador · aplica seguridad</text>
+
+  <rect x="380" y="335" width="400" height="95" rx="10" class="box" fill="#fef3c7"/>
+  <text x="400" y="363" class="t">Middleware de seguridad</text>
+  <text x="400" y="385" class="m">app/security.py (Depends)</text>
+  <text x="400" y="405" class="s">HTTPBearer + PyJWT → 401 TOKEN_REQUERIDO / INVALIDO</text>
+  <text x="400" y="423" class="s">requiere_rol("JEFE_ESTABLO") → 403 ROL_INSUFICIENTE</text>
+
+  <rect x="380" y="465" width="400" height="80" rx="10" class="box" fill="#f1f5f9"/>
+  <text x="400" y="493" class="t">Controladores</text>
+  <text x="400" y="515" class="m">app/controllers/*_controller.py</text>
+  <text x="400" y="535" class="s">HTTP ⇄ servicio · elige 200/201/202/204 · sin reglas</text>
+
+  <rect x="380" y="580" width="400" height="110" rx="10" class="box" fill="#dcfce7"/>
+  <text x="400" y="608" class="t">Servicios (reglas de negocio 1–5)</text>
+  <text x="400" y="630" class="m">app/services/*_service.py · validators.py</text>
+  <text x="400" y="650" class="s">asignar: transacción + SELECT … FOR UPDATE (cupo 9)</text>
+  <text x="400" y="668" class="s">transiciones de mantenimiento (409)</text>
+  <text x="400" y="686" class="s">PISTA_DESPEGUE + VENTISCA → 422</text>
+
+  <rect x="380" y="725" width="400" height="80" rx="10" class="box" fill="#f1f5f9"/>
+  <text x="400" y="753" class="t">Repositorios</text>
+  <text x="400" y="775" class="m">app/repositories/*_repository.py</text>
+  <text x="400" y="795" class="s">SQLAlchemy 2 (Session por petición)</text>
+
+  <rect x="380" y="840" width="400" height="80" rx="10" class="box" fill="#ede9fe"/>
+  <text x="400" y="868" class="t">MySQL 8 (Laragon)</text>
+  <text x="400" y="890" class="m">BD polonorte_py</text>
+  <text x="400" y="910" class="s">tablas renos, mantenimientos</text>
+
+  <!-- Flechas de la columna central -->
+  <path d="M300,140 L378,140" class="arr"/>
+  <text x="308" y="132" class="lbl">petición</text>
+  <path d="M378,170 L302,170" class="ok"/>
+  <text x="310" y="188" class="lg">respuesta</text>
+  <path d="M580,185 L580,218" class="arr"/>
+  <path d="M580,300 L580,333" class="arr"/>
+  <path d="M580,430 L580,463" class="arr"/>
+  <path d="M580,545 L580,578" class="arr"/>
+  <path d="M580,690 L580,723" class="arr"/>
+  <path d="M580,805 L580,838" class="arr"/>
+
+  <!-- Manejador global de errores -->
+  <rect x="40" y="440" width="260" height="200" rx="10" class="box" fill="#fee2e2" stroke="#b91c1c"/>
+  <text x="58" y="468" class="t">Manejador global</text>
+  <text x="58" y="488" class="t">de errores</text>
+  <text x="58" y="510" class="m">app/error_handlers.py</text>
+  <text x="58" y="532" class="s">AppError · RequestValidationError</text>
+  <text x="58" y="550" class="s">404/405 · Exception (500)</text>
+  <text x="58" y="574" class="s">→ JSON único:</text>
+  <text x="58" y="594" class="m">{codigo, mensaje, detalles,</text>
+  <text x="58" y="612" class="m"> timestamp, ruta}</text>
+
+  <path d="M378,280 L302,470" class="err"/>
+  <path d="M378,395 L302,500" class="err"/>
+  <path d="M378,515 L302,540" class="err"/>
+  <path d="M378,640 L302,600" class="err"/>
+  <text x="306" y="662" class="lr">raise</text>
+  <text x="306" y="676" class="lr">AppError</text>
+  <path d="M170,438 L170,217" class="err"/>
+  <text x="178" y="330" class="lr">JSON de error</text>
+  <text x="178" y="346" class="lr">400·401·403·404</text>
+  <text x="178" y="362" class="lr">409·422·500</text>
+
+  <!-- Leyenda -->
+  <rect x="860" y="100" width="500" height="160" rx="10" class="box" fill="#ffffff"/>
+  <text x="880" y="128" class="t">Leyenda</text>
+  <path d="M880,155 L950,155" class="arr"/><text x="962" y="160" class="s">llamada (sentido de la petición)</text>
+  <path d="M880,185 L950,185" class="ok"/><text x="962" y="190" class="s">respuesta correcta (200/201/202/204)</text>
+  <path d="M880,215 L950,215" class="err"/><text x="962" y="220" class="s">error → manejador global / fallo del SOAP</text>
+  <text x="880" y="246" class="s">Endpoints: /api/auth, /api/renos, /api/mantenimientos, /api/vuelo/resumen</text>
+
+  <!-- Punto de manejo del fallo -->
+  <rect x="860" y="300" width="500" height="200" rx="10" fill="#fff7ed" stroke="#b91c1c" stroke-width="2"/>
+  <text x="880" y="328" class="t" fill="#b91c1c">⚠ Punto donde se maneja el fallo del SOAP</text>
+  <text x="880" y="354" class="s">1. El adaptador detecta timeout (3 s), error de red,</text>
+  <text x="896" y="372" class="s">soap:Fault o XML inválido.</text>
+  <text x="880" y="396" class="s">2. Reintenta con backoff exponencial (máx. 2 intentos).</text>
+  <text x="880" y="420" class="s">3. Lanza ServicioExternoNoDisponibleError (sin XML).</text>
+  <text x="880" y="444" class="s">4. mantenimiento_service lo captura → guarda PENDIENTE_CLIMA.</text>
+  <text x="880" y="468" class="s">5. El controlador responde 202 Accepted. Nunca 500.</text>
+  <text x="880" y="490" class="m">Errores inesperados (bugs) sí salen como 500.</text>
+
+  <!-- Adaptador SOAP -->
+  <rect x="860" y="560" width="500" height="140" rx="10" class="box" fill="#e0e7ff"/>
+  <text x="880" y="588" class="t">Adaptador SOAP</text>
+  <text x="880" y="610" class="m">app/adapters/meteo_adapter.py · MeteoAdapter</text>
+  <text x="880" y="632" class="s">único que conoce XML: dominio ⇄ envelope SOAP</text>
+  <text x="880" y="652" class="s">httpx (timeout por intento) · defusedxml (sin XXE)</text>
+  <text x="880" y="672" class="s">inyectado con Depends(get_meteo_adapter)</text>
+  <text x="880" y="690" class="m">obtener_pronostico(zona, fecha) → {zona, fecha, condicion}</text>
+
+  <path d="M782,615 L858,615" class="arr"/>
+  <text x="786" y="606" class="lbl">solo PISTA_</text>
+  <text x="786" y="634" class="lbl">DESPEGUE</text>
+  <path d="M858,665 L782,665" class="ok"/>
+  <text x="790" y="684" class="lg">condición</text>
+  <path d="M1110,558 L1110,502" class="err"/>
+  <text x="1120" y="536" class="lr">timeout / Fault</text>
+  <path d="M858,470 C800,470 740,515 740,576" class="err"/>
+  <text x="790" y="540" class="lr">error de</text>
+  <text x="790" y="554" class="lr">dominio</text>
+
+  <!-- Servicio externo -->
+  <rect x="860" y="790" width="500" height="130" rx="10" class="box" fill="#f8fafc" stroke-dasharray="8 4"/>
+  <text x="880" y="818" class="t">MeteoPoloNorteService (SOAP heredado, externo)</text>
+  <text x="880" y="842" class="m">POST /meteo · SOAPAction: ObtenerPronostico</text>
+  <text x="880" y="864" class="s">responde DESPEJADO | NEVADA_LEVE | VENTISCA o soap:Fault</text>
+  <text x="880" y="886" class="s">mock del docente, o mock local: mock/meteo_server.py :8089</text>
+  <text x="880" y="906" class="m">2026-12-24 → Fault · 2026-12-23 → tarda 5 s</text>
+
+  <path d="M1060,702 L1060,788" class="arr"/>
+  <text x="1068" y="740" class="lbl">envelope XML</text>
+  <text x="1068" y="756" class="lbl">(HTTP POST)</text>
+  <path d="M1200,788 L1200,702" class="ok"/>
+  <text x="1208" y="740" class="lg">XML respuesta</text>
+  <text x="1208" y="756" class="lr">o soap:Fault (HTTP 500)</text>
+
+  <text x="40" y="975" class="s">Flujo normal: Cliente → entrada → rutas → seguridad → controladores → servicios → repositorios → MySQL; los servicios llaman al adaptador SOAP solo para PISTA_DESPEGUE.</text>
+</svg>
